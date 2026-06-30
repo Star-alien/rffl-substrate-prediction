@@ -1,0 +1,7 @@
+biopython>=1.79
+freesasa
+numpy
+pandas
+matplotlib
+requests
+scipy
