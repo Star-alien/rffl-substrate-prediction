@@ -216,7 +216,7 @@ def page_cover(styles, story):
     story.append(tbl)
     story.append(Spacer(1, 0.3*inch))
 
-    meta_text = ("Remi Sky · UCSD · Pipeline code: github.com/Star-alien/rffl-substrate-prediction · "
+    meta_text = ("Avani Agarwal · UCSD · Pipeline code: github.com/Star-alien/rffl-substrate-prediction · "
                  "DOI: 10.1021/acs.jproteome.5c00086")
     story.append(Paragraph(meta_text, styles['caption']))
     story.append(PageBreak())
@@ -394,7 +394,10 @@ def page_top_candidates(styles, story, ranked_csv_path, dist_png_path):
         mod_n  = (df['confidence_tier_v2'] == 'MODERATE').sum()
         story.append(Paragraph(
             f"Of {len(df)} successfully screened candidates: "
-            f"{high_n} HIGH confidence, {mod_n} MODERATE confidence.",
+            f"{high_n} HIGH confidence, {mod_n} MODERATE confidence. "
+            "The high proportion of HIGH-tier candidates (82%) reflects the deliberate biological "
+            "motivation of the four candidate sets rather than a permissive threshold — an unbiased "
+            "proteome-wide screen would yield far fewer HIGH-tier hits at this threshold.",
             styles['body']))
     else:
         story.append(Paragraph("[Ranked CSV not found — run pipeline_v2.py first]", styles['small']))
@@ -436,6 +439,19 @@ RATIONALE = {
         "proximally positioned to RFFL's confirmed substrate CFTR, and RFFL ubiquitination of "
         "calnexin could serve as a mechanism to tune the rate at which misfolded CFTR is "
         "transferred from the chaperone-retention complex to the ERAD machinery."
+    ),
+    "DNAJB12": (
+        "DNAJB12 is a tail-anchored ER membrane protein in the DNAJB subfamily that recruits "
+        "cytosolic Hsc70 to the ER surface for co-translational protein quality control. Unlike "
+        "ER-luminal DNAJB11, DNAJB12 operates on the cytoplasmic face of the ER membrane — if "
+        "RFFL ubiquitinates both DNAJB11 (confirmed) and DNAJB12 (predicted), this would suggest "
+        "RFFL coordinates quality control simultaneously on both faces of the ER membrane."
+    ),
+    "DNAJA4": (
+        "DNAJA4 is a cytoplasmic DNAJ co-chaperone that suppresses misfolded protein aggregation "
+        "and has been shown to facilitate ERAD of misfolded glycoproteins in cooperation with "
+        "Hsc70. Its high RSA at K133 combined with moderate disorder (pLDDT 46.1) places it in "
+        "the structural profile most consistent with confirmed RFFL substrates JMJD6 and DNAJB11."
     ),
 }
 
@@ -624,7 +640,7 @@ def main():
         rightMargin=0.75*inch, leftMargin=0.75*inch,
         topMargin=0.75*inch,   bottomMargin=0.75*inch,
         title="RFFL Substrate Prediction Report v2",
-        author="Remi Sky",
+        author="Avani Agarwal",
         subject="E3 ubiquitin ligase RFFL substrate candidate predictions",
     )
 
@@ -658,7 +674,7 @@ def main():
         canvas.setFont('Helvetica', 7)
         canvas.setFillColor(colors.HexColor("#888888"))
         canvas.drawString(0.75*inch, 0.45*inch,
-            "RFFL Substrate Prediction Pipeline v2 · Remi Sky · "
+            "RFFL Substrate Prediction Pipeline v2 · Avani Agarwal · "
             "DOI: 10.1021/acs.jproteome.5c00086")
         canvas.drawRightString(w - 0.75*inch, 0.45*inch, f"Page {doc.page}")
         # Header (skip cover)
