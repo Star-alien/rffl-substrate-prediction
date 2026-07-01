@@ -1,7 +1,10 @@
 biopython>=1.79
-freesasa
+biotite>=0.39
 numpy
 pandas
 matplotlib
 requests
 scipy
+reportlab>=5.0
+# freesasa: requires MSVC C++ Build Tools — not installable on this machine without them;
+#           biotite (Lee-Richards) is used instead for SASA calculation

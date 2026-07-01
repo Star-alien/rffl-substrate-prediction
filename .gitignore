@@ -5,3 +5,6 @@ __pycache__/
 venv/
 env/
 data/negatives/
+data/hard_negatives/
+data/substrates/
+data/candidates/
